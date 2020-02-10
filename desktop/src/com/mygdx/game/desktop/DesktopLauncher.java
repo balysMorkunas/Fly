@@ -7,6 +7,9 @@ import com.mygdx.game.FlyMain;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.height = 512;
+		config.width = 512;
+
 		new LwjglApplication(new FlyMain(), config);
 	}
 }

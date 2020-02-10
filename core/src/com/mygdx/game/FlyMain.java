@@ -16,27 +16,41 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.security.Key;
 import java.security.Policy;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FlyMain extends GameBeta {
 
 	private Plane plane;
+	private Enemy enemy;
 
 	@Override
 	public void initialize () {
-		plane = new Plane();
-		plane.setTexture(new Texture(Gdx.files.internal("plane.png")));
-		plane.setPosition(20, 20);
+		plane = new Plane(20, 20, mainStage);
+		enemy = new Enemy(206, 206, mainStage);
 		mainStage.addActor(plane);
+		mainStage.addActor(enemy);
+
+		BaseActor.setWorldBounds(512, 512);
 
 	}
 
 	@Override
 	public void update (float dt) {
 	    //win condition here and other stuff related to gameplay.
+        for(BaseActor projectile : BaseActor.getList(mainStage, "com.mygdx.game.Projectile")) {
+        	Projectile prj = (Projectile) projectile;
+
+        	if(prj.overlaps(enemy)) {
+        		prj.collide();
+        		System.out.println("COLLIDED");
+			}
+		}
 	}
 
 	
 	@Override
 	public void dispose () {
 	}
+
 }
